@@ -867,6 +867,7 @@
       (display "understood as s for south move")
       (if (any-conflicts? (down piece) board)
 	  (begin
+	    (newline)(display "cannot go SOUTH - conflicts detected")
 	    (game-ask piece board))
 	  (game-ask (down piece) board)))
      
