@@ -934,7 +934,16 @@
 (define (game-loop board)
   (let ((piece (make-piece (one-of '(flat box elbow right-bend left-bend junction))
 			   5 20)))
-    (game-ask piece board)))
+
+    (cond
+     ((any-conflicts? piece board)
+      (newline)
+      (newline)
+      (display "G a m e ... O v e r"))
+     (else
+      (game-ask piece board)))))
+
+
 
 
 
