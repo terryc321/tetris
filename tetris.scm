@@ -809,6 +809,7 @@
   (display "_ _ _ _ _ _ _ _ _ _ _ _")
   (newline)
   (newline)
+  (margin)
   (show-board-squares 0 21 board)
   (newline)
   (margin)
@@ -855,7 +856,7 @@
   (newline)
   (display "Your move :> enter S A D N or M ")	      
   (newline)  
-  (display "south!(S) : left(A) : right(D) : rot-right(N) : rot-left(M) :> ")
+  (display "south!(s) : left(a) : right(d) : rot-right(n) : rot-left(m) : quit(q)> ")
   (let ((response (read)))
     (newline)
     (display "response =[")
@@ -863,36 +864,50 @@
     (display "]")
     (cond
      ((or (equal? response 's))
+      (display "understood as s for south move")
       (if (any-conflicts? (down piece) board)
 	  (begin
-	    (game-loop (combine-piece-and-board piece board)))
+	    (game-ask piece board))
 	  (game-ask (down piece) board)))
      
-     ((or (equal? response "a"))
+     ((or (equal? response 'a))
+      (display "understood as a for LEFT")
       (if (any-conflicts? (left piece) board)
 	  (begin
 	    (game-ask piece board))
 	  (game-ask (left piece) board)))     
       
-     ((or (equal? response "d"))
+     ((or (equal? response 'd))
+      (display "understood as d for DOWN")
       (if (any-conflicts? (right piece) board)
 	  (begin
 	    (game-ask piece board))
 	  (game-ask (right piece) board)))
      
-     ((or (equal? response "n"))
+     ((or (equal? response 'n))
+      (display "understood as n for ROTATE rIGHT")
       (if (any-conflicts? (rotate-right piece) board)
 	  (begin
 	    (game-ask piece board))
 	  (game-ask (rotate-right piece) board)))
            
-     ((or (equal? response "m"))
+     ((or (equal? response 'm))
+      (display "understood as m for ROTATE LEFT")      
       (if (any-conflicts? (rotate-left piece) board)
 	  (begin
 	    (game-ask piece board))
 	  (game-ask (rotate-left piece) board)))
 
-     ((or (equal? response "q"))
+     ((or (equal? response 'f))
+      (display "understood as f for COMPLETED MOVE")      
+      (if (any-conflicts? (down piece) board)
+	  (begin
+	    (game-loop (combine-piece-and-board piece board)))
+	  (game-ask (rotate-left piece) board)))
+     
+
+     ((or (equal? response 'q))
+      (display "understood as q for QUIT")
       (error "quit from game - q - "))     
                  
      (else (newline)
@@ -900,6 +915,9 @@
 	   (display response)
 	   (newline)
 	   (game-ask piece board)))))
+
+
+
 
 
 
