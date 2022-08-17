@@ -7,6 +7,7 @@
 ;; so if nobody claims a square then it is empty
 ;;
 
+
 ;;
 ;;
 ;;   transition right -->
