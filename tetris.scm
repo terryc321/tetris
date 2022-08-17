@@ -874,13 +874,15 @@
       (display "understood as a for LEFT")
       (if (any-conflicts? (left piece) board)
 	  (begin
+	    (newline)(display "cannot go LEFT any more - conflicts detected")
 	    (game-ask piece board))
 	  (game-ask (left piece) board)))     
       
      ((or (equal? response 'd))
-      (display "understood as d for DOWN")
+      (display "understood as d for RIGHT")
       (if (any-conflicts? (right piece) board)
 	  (begin
+	    (newline)(display "cannot go RIGHT any more - conflicts detected")
 	    (game-ask piece board))
 	  (game-ask (right piece) board)))
      
@@ -888,6 +890,7 @@
       (display "understood as n for ROTATE rIGHT")
       (if (any-conflicts? (rotate-right piece) board)
 	  (begin
+	    (newline)(display "cannot rotate RIGHT  - conflicts detected")
 	    (game-ask piece board))
 	  (game-ask (rotate-right piece) board)))
            
@@ -895,6 +898,7 @@
       (display "understood as m for ROTATE LEFT")      
       (if (any-conflicts? (rotate-left piece) board)
 	  (begin
+	    (newline)(display "cannot rotate LEFT - conflicts detected")	    
 	    (game-ask piece board))
 	  (game-ask (rotate-left piece) board)))
 
@@ -902,6 +906,7 @@
       (display "understood as f for COMPLETED MOVE")      
       (if (any-conflicts? (down piece) board)
 	  (begin
+	    (newline)(display "we are done with this piece !")
 	    (game-loop (combine-piece-and-board piece board)))
 	  (game-ask (rotate-left piece) board)))
      
@@ -915,6 +920,7 @@
 	   (display response)
 	   (newline)
 	   (game-ask piece board)))))
+
 
 
 
@@ -945,6 +951,7 @@
 		 
 		 
 (game)
+
 
 
 
